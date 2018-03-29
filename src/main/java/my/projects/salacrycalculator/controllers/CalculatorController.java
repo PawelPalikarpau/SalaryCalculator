@@ -6,6 +6,7 @@ import my.projects.salacrycalculator.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Set;
@@ -28,26 +29,27 @@ public class CalculatorController {
 
     @RequestMapping(value = "/getCurrencies", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:4200")
-    public Set<Currency> getCurrency() {
-        return fileService.getCurrenciesFromFile();
+    public Set<Currency> getCurrency() throws FileNotFoundException {
+        return fileService.getDataFromFile("currency file");
     }
 
     @RequestMapping(value = "/getVats", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:4200")
-    public Set<BigDecimal> getVats() {
-        return fileService.getVatsFromFile();
+    public Set<BigDecimal> getVats() throws FileNotFoundException {
+        return fileService.getDataFromFile("vat file");
     }
 
     @RequestMapping(value = "/addCurrency", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:4200")
-    public void addCurrency(@RequestBody Currency currency) {
-        fileService.addCurrency(currency);
+    public void addCurrency(@RequestBody Currency currency) throws FileNotFoundException {
+        fileService.addNewItem(currency, "currency file");
     }
 
     @RequestMapping(value = "/addVat", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:4200")
-    public void addVat(@RequestBody String vat) {
-        fileService.addVat(new BigDecimal(vat).setScale(0, RoundingMode.HALF_UP));
+    public void addVat(@RequestBody String vat) throws FileNotFoundException {
+        BigDecimal vatValue = new BigDecimal(vat).setScale(0, RoundingMode.HALF_UP);
+        fileService.addNewItem(vatValue, "vat file");
     }
 
     @RequestMapping(value = "/countSalary", method = RequestMethod.POST)

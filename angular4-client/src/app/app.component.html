@@ -35,14 +35,14 @@
       <br/>
       <input type="text" id="valueGross" name="valueGross" [(ngModel)]="valueGross"/>
       <br/>
-      <label class="control-label" for="selectedCurrency">Choose The Currency:</label>
+      <label class="control-label" for="selectedCurrency">Select Currency:</label>
       <br/>
       <select class="form-control col-4" id="selectedCurrency" name="selectedCurrency" [(ngModel)]="selectedCurrency">
         <option *ngFor="let currency of currencies" [ngValue]="currency">
           {{currency.country}}, {{currency.currencyName}}
         </option>
       </select>
-      <label class="control-label" for="selectedVat">Choose The Vat:</label>
+      <label class="control-label" for="selectedVat">Select Vat:</label>
       <br/>
       <select class="form-control col-4" id="selectedVat" name="selectedVat" [(ngModel)]="selectedVat">
         <option *ngFor="let vat of vats" [ngValue]="vat">{{vat}}%</option>
@@ -52,12 +52,12 @@
       <br/><br/>
       <button id="countSalary" type="button" class="btn btn-primary" (click)="countSalary()">Count Salary</button>
       <br/><br/><br/>
-      <h3 *ngIf="result != ''" class="control-label">Result: {{result}} PLN by month</h3>
+      <h3 *ngIf="result" class="control-label">Result: {{result}} PLN by month</h3>
     </div>
   </div>
   <br/>
   <div class="row">
     <div class="col-md-3"></div>
-    <h3 style="color: darkred;" *ngIf="error">{{error}}</h3>
+    <h3 style="color: darkred;" *ngIf="error != null">{{error}}</h3>
   </div>
 </div>
