@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Http} from "@angular/http";
 import {AppService} from "./app.service";
-import { format, startOfDay, compareAsc, addMinutes } from 'date-fns';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -14,16 +11,16 @@ export class AppComponent implements OnInit {
   currencies: Currency[];
   vats: number[];
 
-  selectedCurrency: Currency;
+  selectedCurrency: Currency = new Currency;
   selectedVat: number;
 
   newCurrency: Currency = new Currency;
   newVatValue: string;
 
   valueGross: string;
-  result: string = '';
+  result: any = null;
 
-  error: string;
+  error: any = null;
 
   constructor(private appService: AppService) {}
 
@@ -35,20 +32,20 @@ export class AppComponent implements OnInit {
     this.appService.createFiles()
       .then(
         output => {
-              this.appService.getCurrencies()
-                .then (
-                  output => {
-                    this.currencies = output;
-                  }
-                );
-              this.appService.getVats()
-                .then(
-                  output => {
-                    this.vats = output;
-                  }
-                )
-            }
-          );
+          this.appService.getCurrencies()
+            .then (
+              output => {
+                this.currencies = output;
+              }
+            );
+          this.appService.getVats()
+            .then(
+              output => {
+                this.vats = output;
+              }
+            )
+        }
+      );
   }
 
   addCurrency() {
