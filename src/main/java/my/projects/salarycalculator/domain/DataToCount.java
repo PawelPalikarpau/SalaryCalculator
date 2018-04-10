@@ -1,4 +1,4 @@
-package my.projects.salacrycalculator.domains;
+package my.projects.salarycalculator.domain;
 
 public class DataToCount {
     private String value;
@@ -6,12 +6,6 @@ public class DataToCount {
     private String vat;
 
     public DataToCount() {
-    }
-
-    public DataToCount(String value, Currency currency, String vat) {
-        this.value = value;
-        this.currency = currency;
-        this.vat = vat;
     }
 
     public String getValue() {
