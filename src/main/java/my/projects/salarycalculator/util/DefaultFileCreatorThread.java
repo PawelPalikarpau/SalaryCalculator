@@ -38,7 +38,7 @@ public class DefaultFileCreatorThread implements Runnable {
             }
         }
 
-        if (file.length() == 0) {
+        if (file.exists() && file.length() == 0) {
             FileWriter writer = null;
             try {
                 writer = new FileWriter(file);
