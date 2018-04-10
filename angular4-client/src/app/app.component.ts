@@ -29,23 +29,14 @@ export class AppComponent implements OnInit {
   }
 
   loadAll() {
-    this.appService.createFiles()
-      .then(
-        output => {
-          this.appService.getCurrencies()
-            .then (
-              output => {
-                this.currencies = output;
-              }
-            );
-          this.appService.getVats()
-            .then(
-              output => {
-                this.vats = output;
-              }
-            )
-        }
-      );
+      this.appService.getCurrencies()
+        .then (
+          output => {
+            this.currencies = output;
+            this.appService.getVats().then(output => { this.vats = output;})
+          }
+        );
+
   }
 
   addCurrency() {

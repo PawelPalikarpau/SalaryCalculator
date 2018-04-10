@@ -52,45 +52,43 @@ public class FileService {
         }
     }
 
-    public <T> Set<T> getDataFromFile() throws Exception {
-        synchronized (this) {
-            fileName = support.getFileName(path);
+    public<T> Set<T> getDataFromFile() throws Exception {
+        fileName = support.getFileName(path);
 
-            File file = new File(path.toString());
-            Set<T> fromFileItems;
+        File file = new File(path.toString());
+        Set<T> fromFileItems;
 
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new FileReader(file));
-                fromFileItems = new HashSet<>();
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            fromFileItems = new HashSet<>();
 
-                if (file.length() != 0) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        line = line.replaceAll("\r\n", "");
-                        support.addToItemSet(path, fromFileItems, line);
-                    }
-                } else {
-                    LOG.log(Level.SEVERE, fileName + " is empty !!!");
+            if (file.length() != 0) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    line = line.replaceAll("\r\n", "");
+                    support.addToItemSet(path, fromFileItems, line);
                 }
-            } catch (FileNotFoundException fnfe) {
-                LOG.log(Level.SEVERE, fileName + " does not exists", fnfe);
-                throw new FileNotFoundException("File not found");
-            } catch (IOException ioe) {
-                LOG.log(Level.SEVERE, "Problem with reading from " + fileName, ioe);
-                throw new IOException(ioe);
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException ioe) {
-                        LOG.log(Level.SEVERE, "Problem with closing FileReader for " + fileName, ioe);
-                    }
+            } else {
+                LOG.log(Level.SEVERE, fileName + " is empty !!!");
+            }
+        } catch (FileNotFoundException fnfe) {
+            LOG.log(Level.SEVERE, fileName + " does not exists", fnfe);
+            throw new FileNotFoundException("File not found");
+        } catch (IOException ioe) {
+            LOG.log(Level.SEVERE, "Problem with reading from " + fileName, ioe);
+            throw new IOException(ioe);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ioe) {
+                    LOG.log(Level.SEVERE, "Problem with closing FileReader for " + fileName, ioe);
                 }
             }
-
-            return fromFileItems;
         }
+
+        return fromFileItems;
     }
 
     public void createAndFillDefaultFiles() {
