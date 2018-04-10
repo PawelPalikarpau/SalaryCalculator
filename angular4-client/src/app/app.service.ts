@@ -10,15 +10,6 @@ export class AppService {
 
   constructor(private http: Http) {}
 
-  createFiles(): Promise<any> {
-    return this.http.get(this.baseUrl + '/createFiles')
-      .toPromise()
-      .then(response => {
-        return response as any;
-      })
-      .catch(this.handleError)
-  }
-
   getCurrencies(): Promise<Currency[]> {
     return this.http.get(this.baseUrl + '/getCurrencies')
       .toPromise()

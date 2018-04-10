@@ -8,6 +8,7 @@ import my.projects.salarycalculator.util.Support;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Set;
@@ -24,8 +25,7 @@ public class CalculatorController {
         this.support = support;
     }
 
-    @RequestMapping(value = "/createFiles", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:4200")
+    @PostConstruct
     public void createFiles() {
         fileService.createAndFillDefaultFiles();
     }
