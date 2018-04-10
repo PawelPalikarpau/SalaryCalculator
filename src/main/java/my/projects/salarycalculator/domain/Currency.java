@@ -1,4 +1,4 @@
-package my.projects.salacrycalculator.domains;
+package my.projects.salarycalculator.domain;
 
 public class Currency {
 
